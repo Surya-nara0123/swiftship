@@ -14,11 +14,9 @@ const Page = () => {
   });
 
   const onSignup = async () => {
-    // const res = await axios.post("/api/signup", user)
-    // // console.log(res);
-    // if (res.data.status === "success") {
-    //   router.push("/login");
-    // }
+    const res = await axios.post("/api/signup", user)
+    console.log(res);
+      window.location.href = "/login";
   }
     
   return (

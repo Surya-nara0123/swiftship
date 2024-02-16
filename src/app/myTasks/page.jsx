@@ -1,5 +1,5 @@
 "use client";
-import NavbarLogin from "../../components/NavbarLogin";
+import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -203,25 +203,13 @@ const TaskWindow = ({ item }) => {
           <h1 className="font-black text-white text-1xl">
             To: {item.toUsername}
           </h1>
-          <button
-            className="bg-[#A952e3] py-2 px-12 ml-4 mr-7 rounded-md cursor-pointer hover:bg-[#A546bd]"
-            onClick={() => {
-              setWindowClose(true);
-              windowClose1 = true;
-              myTasks.push(item);
-              let index = l.indexOf(item);
-              l.splice(index, 1);
-            }}
-          >
-            Accept
-          </button>
         </div>
       )}
     </div>
   );
 };
 
-const Page = ({ params }) => {
+const Page = () => {
   // refresh the page
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
@@ -238,18 +226,18 @@ const Page = ({ params }) => {
   return (
     <>
       <div>
-        <NavbarLogin item={params.id} />
+        <NavbarLogin item={"Surya"} />
         <div className="min-h-screen gradient-bg-footer">
           <div className="gradient-bg2 flex flex-col h-[500px] items-center justify-center">
-            <h1 className="font-black text-3xl">Welcome {params.id}</h1>
+            <h1 className="font-black text-3xl">Welcome {"Surya"}</h1>
             <h1 className="font-bold text-1xl">
-              See all tasks you are eligible for in this page
+              See all your tasks in this page
             </h1>
           </div>
           {/* display the tasks */}
           {/* Heading */}
           <div className="white-glassmorphism flex flex-col items-center justify-center py-3 mx-2 mt-4">
-            <h1 className="font-bold text-white text-2xl">Available Tasks</h1>
+            <h1 className="font-bold text-white text-2xl">My Tasks</h1>
           </div>
           {/* Acutal Tasks */}
           <div className="min-w-screen gradient-bg3 p-2 mt-4 rounded-md">

@@ -30,26 +30,24 @@ export async function POST(request) {
         const newUser = new User({
             username: username,
             email: email,
-            mobileNumber: mobile,
+            mobile: mobile,
             password: hashedPassword
         })
-
-        try {
-            const savedUser = await newUser.save()
-        }
-        catch (error) {
-            console.log(error);
-        }
+        const savedUser = await newUser.save()
         console.log("hello");
 
         //send verification email
-
-        return NextResponse.json({
-            message: "User created successfully",
-            success: true,
-            savedUser
-        })
-
+        try {
+            return NextResponse.json({
+                message: "User created successfully",
+                success: true,
+                savedUser
+            })
+        }
+        catch (error) {
+            console.log(error);
+        
+        }
 
 
 

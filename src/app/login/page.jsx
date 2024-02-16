@@ -13,12 +13,10 @@ const Page = () => {
     mobile: "",
   });
 
-  const onSignup = async () => {
-    // const res = await axios.post("/api/signup", user)
-    // // console.log(res);
-    // if (res.data.status === "success") {
-    //   router.push("/login");
-    // }
+  const onLogin = async () => {
+    const res = await axios.post("/api/login", user)
+    // console.log(res);
+    window.location.href = `/dashboard/${res.data.user._id}`;
   }
     
   return (
@@ -40,7 +38,7 @@ const Page = () => {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="password"
         />
-        <div className="p-2 m-2 bg-[#2952e3] rounded-md cursor-pointer hover:bg-[#2546bd]" onClick={onSignup}>
+        <div className="p-2 m-2 bg-[#2952e3] rounded-md cursor-pointer hover:bg-[#2546bd]" onClick={onLogin}>
           Login
         </div>
       </div>

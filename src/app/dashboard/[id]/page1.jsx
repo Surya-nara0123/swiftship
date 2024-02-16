@@ -95,7 +95,7 @@ const l = [
 const TaskWindow = ({ item }) => {
   const [windowClose, setWindowClose] = useState(false);
   return (
-    <div w-screen h-screen  >
+    <div>
       {!windowClose && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 white-glassmorphism rounded-md shadow-md p-5 px-7 border-black border-2 mx-auto">
           <AiOutlineClose
@@ -180,7 +180,7 @@ const Page = ({ params }) => {
               >
                 <h1 className="font-bold text-1xl">{item.taskTitle}</h1>
                 {hoverTask[0] & (hoverTask[2] == item._id.$oid) ? (
-                  <div className="fixed blue-glassmorphism rounded-md shadow-md p-2 border-black border-2 mx-auto z-50">
+                  <div className="fixed blue-glassmorphism rounded-md shadow-md p-2 border-black border-2 mx-auto">
                     <h1 className="font-black text-white text-1xl">
                       {item.type}
                     </h1>
@@ -207,48 +207,6 @@ const Page = ({ params }) => {
       {taskToggle[0] & !windowClose1 ? (
         <TaskWindow item={taskToggle[1]} />
       ) : null}
-      {myTasks.length > 0 && (
-        <>
-          <div className="flex flex-col items-center justify-center gradient-bg-transaction white-glassmorphism mt-2">
-            <h1 className="font-bold text-2xl my-3">My Tasks</h1>
-          </div>
-          <div className="grid grid-cols-4 grid-flow-row gap-4 gradient-bg3 my-3 p-2">
-            {myTasks.map((item, index) => {
-              return (
-                <div className="" onClick={() => {}}>
-                  <div
-                    key={item._id.$oid}
-                    className="bg-white rounded-md shadow-md p-4 cursor-pointer hover:bg-[#f0f0f0]"
-                    onMouseEnter={() => setMyHoverTask([true, index])}
-                    onMouseLeave={() => setMyHoverTask([false, index])}
-                  >
-                    <h1 className="font-bold text-1xl">{item.taskTitle}</h1>
-                    {myHoverTask[0] & (myHoverTask[1] == index) ? (
-                      <div className="-translate-y-full fixed blue-glassmorphism rounded-md shadow-md p-2 border-black border-2 mx-auto -z-1">
-                        <h1 className="font-black text-white text-1xl">
-                          {item.type}
-                        </h1>
-                        <h1 className="font-black text-white text-1xl">
-                          From: {item.fromLocation}
-                        </h1>
-                        <h1 className="font-black text-white text-1xl">
-                          To: {item.toLocation}
-                        </h1>
-                        <h1 className="font-black text-white text-1xl">
-                          From: {item.fromUsername}
-                        </h1>
-                        <h1 className="font-black text-white text-1xl">
-                          To: {item.toUsername}
-                        </h1>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
     </div>
   );
 };
