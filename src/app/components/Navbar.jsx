@@ -4,7 +4,20 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 
 const NavBarItem = ({ title, classprops }) => (
-  <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
+  <li
+    className={`mx-4 cursor-pointer ${classprops}`}
+    onClick={() => {
+      if (title === "Contact Us") {
+        window.location.href = "/contact";
+      } else if (title === "Services") {
+        window.location.href = "/services";
+      } else if (title === "My Tasks") {
+        window.location.href = "/myTasks";
+      }
+    }}
+  >
+    {title}
+  </li>
 );
 
 const Navbar = () => {
@@ -19,22 +32,27 @@ const Navbar = () => {
           className="w-20 h-20 cursor-pointer rounded-full"
           onClick={() => {
             window.location.href = "/";
-          }
-          }
+          }}
         />
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial ml-auto">
         {["My Tasks", "Services", "Contact Us"].map((item, index) => (
           <NavBarItem key={item + index} title={item} />
         ))}
-        <li className="bg-[#A952e3] py-2 px-7 ml-4 mr-0 rounded-full cursor-pointer hover:bg-[#A546bd]" onClick={() => {
-          window.location.href = "/signup";
-        }}>
+        <li
+          className="bg-[#A952e3] py-2 px-7 ml-4 mr-0 rounded-full cursor-pointer hover:bg-[#A546bd]"
+          onClick={() => {
+            window.location.href = "/signup";
+          }}
+        >
           Signup
         </li>
-        <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]" onClick={() => {
-          window.location.href = "/login";
-        }}>
+        <li
+          className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]"
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
           Login
         </li>
       </ul>
@@ -68,14 +86,20 @@ const Navbar = () => {
                 classprops="my-2 text-lg"
               />
             ))}
-            <li className="bg-[#A952e3] py-2 px-7 my-2 rounded-full cursor-pointer hover:bg-[#A546bd]" onClick={() => {
-          window.location.href = "/signup";
-        }}>
+            <li
+              className="bg-[#A952e3] py-2 px-7 my-2 rounded-full cursor-pointer hover:bg-[#A546bd]"
+              onClick={() => {
+                window.location.href = "/signup";
+              }}
+            >
               Signup
             </li>
-            <li className="bg-[#2952e3] py-2 px-7 my-2 mr-1.5 rounded-full cursor-pointer hover:bg-[#2546bd]" onClick={() => {
-          window.location.href = "/login";
-        }}>
+            <li
+              className="bg-[#2952e3] py-2 px-7 my-2 mr-1.5 rounded-full cursor-pointer hover:bg-[#2546bd]"
+              onClick={() => {
+                window.location.href = "/login";
+              }}
+            >
               Login
             </li>
           </ul>

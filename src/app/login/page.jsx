@@ -15,8 +15,9 @@ const Page = () => {
 
   const onLogin = async () => {
     const res = await axios.post("/api/login", user)
-    // console.log(res);
-    window.location.href = `/dashboard/${res.data.user._id}`;
+    const res1 = await axios.get("/api/me");
+    console.log(res1);
+    window.location.href = `/dashboard/${res1.data.data.id}`;
   }
     
   return (

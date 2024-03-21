@@ -4,7 +4,20 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 
 const NavBarItem = ({ title, classprops }) => (
-  <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
+  <li
+    className={`mx-4 cursor-pointer ${classprops}`}
+    onClick={() => {
+      if (title === "Contact Us") {
+        window.location.href = "/contact";
+      } else if (title === "Services") {
+        window.location.href = "/services";
+      } else if (title === "My Tasks") {
+        window.location.href = "/myTasks";
+      }
+    }}
+  >
+    {title}
+  </li>
 );
 
 const NavbarLogin = ({ item }) => {

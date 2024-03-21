@@ -2,6 +2,7 @@
 import NavbarLogin from "../../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import axios from "axios";
 
 let windowClose1 = false;
 let myTasks = [
@@ -222,11 +223,21 @@ const TaskWindow = ({ item }) => {
 };
 
 const Page = ({ params }) => {
+
   // refresh the page
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
+  const [userName, setUserName] = useState("");
+  const getUserName = async () => {
+    const response = await axios.get("/api/me");
+    const data = response.data.data;
+    setUserName(data.username);
+  };
 
   useEffect(() => {
+    // get the user name from the token using the get method from /api/me
+    getUserName();
+
     const intervalId = setInterval(() => {
       // Increment the counter
       setCounter((prevCounter) => prevCounter + 1);
@@ -238,10 +249,10 @@ const Page = ({ params }) => {
   return (
     <>
       <div>
-        <NavbarLogin item={params.id} />
+        <NavbarLogin item={userName} />
         <div className="min-h-screen gradient-bg-footer">
           <div className="gradient-bg2 flex flex-col h-[500px] items-center justify-center">
-            <h1 className="font-black text-3xl">Welcome {params.id}</h1>
+            <h1 className="font-black text-3xl">Welcome {userName}</h1>
             <h1 className="font-bold text-1xl">
               See all tasks you are eligible for in this page
             </h1>
@@ -249,7 +260,7 @@ const Page = ({ params }) => {
           {/* display the tasks */}
           {/* Heading */}
           <div className="white-glassmorphism flex flex-col items-center justify-center py-3 mx-2 mt-4">
-            <h1 className="font-bold text-white text-2xl">Available Tasks</h1>
+            <h1 className="font-bold text-white text-2xl">Active Tasks</h1>
           </div>
           {/* Acutal Tasks */}
           <div className="min-w-screen gradient-bg3 p-2 mt-4 rounded-md">

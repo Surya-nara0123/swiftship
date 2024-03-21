@@ -2,6 +2,7 @@
 import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import axios from "axios";
 
 let windowClose1 = false;
 let myTasks = [
@@ -179,6 +180,20 @@ const l = [
 
 const TaskWindow = ({ item }) => {
   const [windowClose, setWindowClose] = useState(false);
+  const [myTasks, setTasks] = useState([]);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const response = axios.get("/api/getTasks");
+    console.log(response);
+    const intervalId = setInterval(() => {
+      // Increment the counter
+      setCounter((prevCounter) => prevCounter + 1);
+    }, 500); // Interval in milliseconds (e.g., 1000ms = 1 second)
+
+    // Clean up function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <div className="">
       {!windowClose && (
@@ -213,8 +228,15 @@ const Page = () => {
   // refresh the page
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
+  const [userName, setUserName] = useState("");
+  const getUserName = async () => {
+    const response = await axios.get("/api/me");
+    const data = response.data.data;
+    setUserName(data.username);
+  };
 
   useEffect(() => {
+    getUserName();
     const intervalId = setInterval(() => {
       // Increment the counter
       setCounter((prevCounter) => prevCounter + 1);
@@ -226,10 +248,10 @@ const Page = () => {
   return (
     <>
       <div>
-        <NavbarLogin item={"Surya"} />
+        <NavbarLogin item={userName} />
         <div className="min-h-screen gradient-bg-footer">
           <div className="gradient-bg2 flex flex-col h-[500px] items-center justify-center">
-            <h1 className="font-black text-3xl">Welcome {"Surya"}</h1>
+            <h1 className="font-black text-3xl">Welcome {userName}</h1>
             <h1 className="font-bold text-1xl">
               See all your tasks in this page
             </h1>
@@ -243,7 +265,7 @@ const Page = () => {
           <div className="min-w-screen gradient-bg3 p-2 mt-4 rounded-md">
             {/* grid tag */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {l.map((items, index) => {
+              {myTasks.map((items, index) => {
                 return (
                   <>
                     <div
@@ -260,8 +282,8 @@ const Page = () => {
                 );
               })}
               {taskToggle[0] & !windowClose1 ? (
-                      <TaskWindow item={taskToggle[1]} />
-                    ) : null}
+                <TaskWindow item={taskToggle[1]} />
+              ) : null}
             </div>
           </div>
         </div>
