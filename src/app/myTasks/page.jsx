@@ -184,6 +184,9 @@ const TaskWindow = ({ item }) => {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
+    axios.get("/api/me").catch(() => {
+      window.location.href = "/login";
+    });
     const response = axios.get("/api/getTasks");
     console.log(response);
     const intervalId = setInterval(() => {
@@ -231,8 +234,12 @@ const Page = () => {
   const [userName, setUserName] = useState("");
   const getUserName = async () => {
     const response = await axios.get("/api/me");
-    const data = response.data.data;
-    setUserName(data.username);
+    if (response) {
+      window.location.href = "/login";
+    } else {
+      const data = response.data.data;
+      setUserName(data.username);
+    }
   };
 
   useEffect(() => {

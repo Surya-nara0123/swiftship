@@ -12,6 +12,13 @@ const Page = () => {
     username: "",
     mobile: "",
   });
+  const getUserName = async () => {
+    const response = await axios.get("/api/me");
+    if (!response) {
+      let a = `dashboard{response.data.data.id}`
+      window.location.href = a;
+    }
+  };
 
   const onLogin = async () => {
     const res = await axios.post("/api/login", user)
