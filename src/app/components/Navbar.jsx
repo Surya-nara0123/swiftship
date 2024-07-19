@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
 
 const NavBarItem = ({ title, classprops }) => (
   <li
@@ -11,12 +11,14 @@ const NavBarItem = ({ title, classprops }) => (
         window.location.href = "/contact";
       } else if (title === "Services") {
         window.location.href = "/services";
-      } else if (title === "My Tasks") {
-        window.location.href = "/myTasks";
+      } else if (title === "My Cart") {
+        window.location.href = "/myCart";
       }
     }}
   >
-    {title}
+    {title == "My Cart" ? (
+      <AiOutlineShoppingCart className="mr-1" size={30}/>
+    ) : title}
   </li>
 );
 
@@ -24,7 +26,7 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
 
   return (
-    <nav className=" fixed gradient-bg-welcome w-full flex md:justify-center justify-between items-center p-2">
+    <nav className="fixed gradient-bg-welcome w-full flex md:justify-center justify-between items-center p-2">
       <div className="md:flex-[0.5] flex-initial justify-center items-center lg:ml-10">
         <img
           src={"/SwiftShip-logos_white.png"}
@@ -36,7 +38,7 @@ const Navbar = () => {
         />
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial ml-auto">
-        {["My Tasks", "Services", "Contact Us"].map((item, index) => (
+        {["My Cart", "Services", "Contact Us"].map((item, index) => (
           <NavBarItem key={item + index} title={item} />
         ))}
         <li
@@ -79,7 +81,7 @@ const Navbar = () => {
             <li className="text-xl w-full my-2">
               <AiOutlineClose onClick={() => setToggleMenu(false)} />
             </li>
-            {["My Tasks", "Services", "Contact Us"].map((item, index) => (
+            {["My Cart", "Services", "Contact Us"].map((item, index) => (
               <NavBarItem
                 key={item + index}
                 title={item}

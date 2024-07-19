@@ -2,16 +2,28 @@
 import React from "react";
 import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, get, query, onValue } from "firebase/database";
+import app from "@/config/firebaseConfig";
 
+const db = getDatabase(app);
 
 export default function Page() {
   const [counter, setCounter] = useState(0);
   const [userName, setUserName] = useState("");
   const getUserName = async () => {
-    const response = await axios.get("/api/me");
-    const data = response.data.data;
-    setUserName(data.username);
+    await onAuthStateChanged(getAuth(), (user1) => {
+      onValue(query(ref(db, "user_details")), (snapshot) => {
+        for (let i in snapshot.val()) {
+          let userDetails = snapshot.val()[i];
+          if (snapshot.val()[i].email == user1.email) {
+            setUserName(userDetails.username);
+          }
+        }
+      });
+    });
+
+    console.log(userName);
   };
   useEffect(() => {
     // get the user name from the token using the get method from /api/me

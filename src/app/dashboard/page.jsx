@@ -1,8 +1,10 @@
 "use client";
-import NavbarLogin from "../../components/NavbarLogin";
+import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
+import { NextResponse } from "next/server";
+import { set } from "mongoose";
 
 let windowClose1 = false;
 let myTasks = [
@@ -223,15 +225,21 @@ const TaskWindow = ({ item }) => {
 };
 
 const Page = ({ params }) => {
+  const [userLoggiedIn, setUserLoggedIn] = useState(false);
 
   // refresh the page
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
   const [userName, setUserName] = useState("");
   const getUserName = async () => {
-    const response = await axios.get("/api/me");
-    const data = response.data.data;
-    setUserName(data.username);
+    const res = await axios.get("/api/getcookies");
+    console.log(res.data.result.value);
+    try {
+      if (res.data.result.value) {
+        setUserName(res.data.result.value);
+        setUserLoggedIn(true);
+      }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -248,47 +256,52 @@ const Page = ({ params }) => {
   }, []);
   return (
     <>
-      <div>
-        <NavbarLogin item={userName} />
-        <div className="min-h-screen gradient-bg-footer">
-          <div className="gradient-bg2 flex flex-col h-[500px] items-center justify-center">
-            <h1 className="font-black text-3xl">Welcome {userName}</h1>
-            <h1 className="font-bold text-1xl">
-              See all tasks you are eligible for in this page
-            </h1>
-          </div>
-          {/* display the tasks */}
-          {/* Heading */}
-          <div className="white-glassmorphism flex flex-col items-center justify-center py-3 mx-2 mt-4">
-            <h1 className="font-bold text-white text-2xl">Active Tasks</h1>
-          </div>
-          {/* Acutal Tasks */}
-          <div className="min-w-screen gradient-bg3 p-2 mt-4 rounded-md">
-            {/* grid tag */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {l.map((items, index) => {
-                return (
-                  <>
-                    <div
-                      key={index}
-                      className="white-glassmorphism rounded-md shadow-md p-4 cursor-pointer hover:bg-[#FFFFFF22] text-black font-black"
-                      onClick={() => {
-                        settaskToggle([true, items]);
-                        windowClose1 = false;
-                      }}
-                    >
-                      {items.taskTitle}
-                    </div>
-                  </>
-                );
-              })}
-              {taskToggle[0] & !windowClose1 ? (
-                      <TaskWindow item={taskToggle[1]} />
-                    ) : null}
+      {userLoggiedIn ? (
+        <>
+          <div>
+            <NavbarLogin item={userName} />
+            <div className="min-h-screen gradient-bg-footer">
+              <div className="gradient-bg2 flex flex-col h-[500px] items-center justify-center">
+                <h1 className="font-black text-3xl">Welcome {userName}</h1>
+                <h1 className="font-bold text-1xl">
+                  See all tasks you are eligible for in this page
+                </h1>
+              </div>
+              {/* display the tasks */}
+              {/* Heading */}
+              <div className="white-glassmorphism flex flex-col items-center justify-center py-3 mx-2 mt-4">
+                <h1 className="font-bold text-white text-2xl">Active Tasks</h1>
+              </div>
+              {/* Acutal Tasks */}
+              <div className="min-w-screen gradient-bg3 p-2 mt-4 rounded-md">
+                {/* grid tag */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {l.map((items, index) => {
+                    return (
+                      <div key={index}>
+                        <div
+                          className="white-glassmorphism rounded-md shadow-md p-4 cursor-pointer hover:bg-[#FFFFFF22] text-black font-black"
+                          onClick={() => {
+                            settaskToggle([true, items]);
+                            windowClose1 = false;
+                          }}
+                        >
+                          {items.taskTitle}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {taskToggle[0] & !windowClose1 ? (
+                    <TaskWindow item={taskToggle[1]} />
+                  ) : null}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
