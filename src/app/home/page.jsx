@@ -97,7 +97,7 @@ const Page = () => {
       {userName.length > 0 ? <NavbarLogin item={userName} cart={setCount} /> : <Navbar />}
       <div className=" flex flex-col gradient-bg-footer w-screen min-h-screen pt-[100px] overflow-auto">
         {/* See all the menus */}
-        <h1 className="text-white text-4xl font-bold ml-10 p-5">Rishabh"s Menu</h1>
+        <h1 className="text-white text-4xl font-bold ml-10 p-5">Rishabhs Menu</h1>
         {/* <RishabhMenu /> */}
         <div className="flex justify-left gap-8 ml-10">
           <Dialog className="select-none">
