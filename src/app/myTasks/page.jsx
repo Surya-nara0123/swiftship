@@ -229,7 +229,7 @@ const Page = () => {
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
   const [userName, setUserName] = useState("");
-
+  const getUserName = async () => { }
   useEffect(() => {
     getUserName();
     const intervalId = setInterval(() => {
