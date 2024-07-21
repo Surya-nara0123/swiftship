@@ -3,8 +3,6 @@ import React from "react";
 import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 
-const db = getDatabase(app);
-
 export default function Page() {
   const [counter, setCounter] = useState(0);
   const [userName, setUserName] = useState("");

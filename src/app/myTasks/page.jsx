@@ -3,9 +3,6 @@ import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const db = getDatabase(app);
-const auth = getAuth();
-
 let windowClose1 = false;
 let myTasks = [
   {
