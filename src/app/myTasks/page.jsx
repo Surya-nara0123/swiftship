@@ -229,18 +229,6 @@ const Page = () => {
   const [counter, setCounter] = useState(0);
   const [taskToggle, settaskToggle] = useState([false, 0]);
   const [userName, setUserName] = useState("");
-  const getUserName = async () => {
-    await onAuthStateChanged(getAuth(), (user1) => {
-      onValue(query(ref(db, "user_details")), (snapshot) => {
-        for (let i in snapshot.val()) {
-          let userDetails = snapshot.val()[i];
-          if (snapshot.val()[i].email == user1.email) {
-            setUserName(userDetails.username);
-          }
-        }
-      });
-    });
-  };
 
   useEffect(() => {
     getUserName();
