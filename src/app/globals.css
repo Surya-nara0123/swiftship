@@ -136,6 +136,16 @@
     radial-gradient(at 50% 150%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
 }
 
+.red-glassmorphism {
+  background: rgba(255, 0, 0, 0.4); /* Red background with transparency */
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Slight shadow */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 0, 0, 0.3); /* Red border with transparency */
+}
+
+
 .blue-glassmorphism {
   background: rgb(39, 51, 89, 0.4);
   border-radius: 16px;

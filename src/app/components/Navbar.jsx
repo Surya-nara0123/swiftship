@@ -2,6 +2,7 @@
 import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
+import { toast } from "sonner";
 
 const NavBarItem = ({ title, classprops }) => (
   <li
@@ -12,7 +13,7 @@ const NavBarItem = ({ title, classprops }) => (
       } else if (title === "Services") {
         window.location.href = "/services";
       } else if (title === "My Cart") {
-        window.location.href = "/myCart";
+        toast("Please Login", { type: "warning" }, { duration: 50 });
       }
     }}
   >
