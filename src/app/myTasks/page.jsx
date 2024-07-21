@@ -2,9 +2,6 @@
 import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, get, query, onValue } from "firebase/database";
-import app from "@/config/firebaseConfig";
 
 const db = getDatabase(app);
 const auth = getAuth();

@@ -3,8 +3,6 @@ import NavbarLogin from "../components/NavbarLogin";
 import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
-import { NextResponse } from "next/server";
-import { set } from "mongoose";
 
 let windowClose1 = false;
 let myTasks = [
